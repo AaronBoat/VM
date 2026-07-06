@@ -137,6 +137,11 @@ int main(int argc, const char *argv[]) {
   //TODO:shutdown
 }
 
+uint16_t swap16(uint16_t x)
+{
+    return (x << 8) | (x >> 8);
+}
+
 void read_image_file(FILE* file)
 {
     /* the origin tells us where in memory to place the image */
@@ -145,7 +150,7 @@ void read_image_file(FILE* file)
     origin = swap16(origin);
 
     /* we know the maximum file size so we only need one fread */
-    uint16_t max_read = MEMORY_MAX - origin;
+    uint16_t max_read = Memory_MAX - origin;
     uint16_t* p = memory + origin;
     size_t read = fread(p, sizeof(uint16_t), max_read, file);
 
