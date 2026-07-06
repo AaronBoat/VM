@@ -53,6 +53,8 @@ enum FLAG {
   FL_NEG = 1 << 2, /* N */
 };
 
+int read_image(const char* this_arg);
+
 int main(int argc, const char *argv[]) {
   if (argc < 2) {
     /* show usage string */
