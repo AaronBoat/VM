@@ -73,4 +73,7 @@ int main(int argc, const char *argv[]) {
 
   reg[R_COND] = FL_ZRO;
 
+  enum { PC_START = 0x3000 };
+  reg[R_PC] = PC_START;
+
 }
