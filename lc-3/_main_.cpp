@@ -28,7 +28,7 @@ enum REGISTER {
   R_COND,
   R_COUNT
 };
-u16_t register_my[R_COUNT];
+u16_t reg[R_COUNT];
 enum OPCODE {
   OP_BR = 0, /* branch */
   OP_ADD,    /* add  */
@@ -68,4 +68,9 @@ int main(int argc, const char *argv[]) {
       exit(1);
     }
   }
+
+  //TODO: Setup
+
+  reg[R_COND] = FL_ZRO;
+
 }
