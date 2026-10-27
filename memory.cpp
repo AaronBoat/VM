@@ -4,7 +4,7 @@
 
 class Memory
 {
-using Address = std::uint32_t;
+    using Address = std::uint32_t;
 
 private:
     static constexpr std::size_t Page_size = 4096;
