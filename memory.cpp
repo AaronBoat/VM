@@ -21,23 +21,37 @@ private:
 
     std::array<PageTableEntry, Page_count> page_table_{};
     static constexpr std::size_t Virtual_memory_size = Page_size * Page_count;
+
+    std::size_t next_free_frame = 0;
+
     PhysicalAddress translate_virtual_to_physical(VirtualAddress virtual_address)
     {
-        if(virtual_address <= Virtual_memory_size)
+        if (virtual_address <= Virtual_memory_size)
         {
-            int page_number = virtual_address / Page_size ;
+            int page_number = virtual_address / Page_size;
             int offset = virtual_address % Page_size;
-            auto entry = page_table_.at(page_number);
-            if(entry.valid)
+            auto &entry = page_table_.at(page_number);
+            if (entry.valid)
             {
                 return entry.frame * Page_size + offset;
             }
             else
             {
-//TODO: 缺页情况下的分配
+                // TODO: 缺页情况下的分配
+                if (next_free_frame < Frame_count)
+                {
+                    entry.valid = true;
+                    entry.frame = next_free_frame;
+                    next_free_frame++;
+                }
+                else
+                {
+                    throw std::runtime_error("out of physical frames");
+                }
             }
         }
     }
+
 public:
     char read(VirtualAddress virtual_address);
     void write(VirtualAddress virtual_address, char value);
